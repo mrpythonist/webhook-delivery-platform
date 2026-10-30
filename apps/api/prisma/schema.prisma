@@ -1,0 +1,72 @@
+// Prisma schema for the Webhook Delivery & Reliability Platform.
+// Delivery.status is stored as a String enum by convention:
+//   "queued" | "delivering" | "delivered" | "failed"
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Endpoint {
+  id            String     @id @default(cuid())
+  url           String
+  // Subscribed event types. Empty array = subscribed to ALL event types.
+  events        String[]   @default([])
+  secret        String
+  maxAttempts   Int        @default(5)
+  backoffBaseMs Int        @default(1000)
+  active        Boolean    @default(true)
+  createdAt     DateTime   @default(now())
+  deliveries    Delivery[]
+}
+
+model WebhookEvent {
+  id        String     @id @default(cuid())
+  type      String
+  payload   Json
+  createdAt DateTime   @default(now())
+  deliveries Delivery[]
+
+  @@index([type])
+}
+
+model Delivery {
+  id            String            @id @default(cuid())
+  eventId       String
+  event         WebhookEvent      @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  endpointId    String
+  endpoint      Endpoint          @relation(fields: [endpointId], references: [id], onDelete: Cascade)
+  status        String            @default("queued")
+  attemptsMade  Int               @default(0)
+  lastStatusCode Int?
+  createdAt     DateTime          @default(now())
+  updatedAt     DateTime          @updatedAt
+  attempts      DeliveryAttempt[]
+
+  @@index([eventId])
+  @@index([endpointId])
+  @@index([status])
+  @@index([createdAt])
+}
+
+model DeliveryAttempt {
+  id          String   @id @default(cuid())
+  deliveryId  String
+  delivery    Delivery @relation(fields: [deliveryId], references: [id], onDelete: Cascade)
+  attemptNo   Int
+  statusCode  Int?
+  // Raw response body, truncated to 4KB by the worker before insert.
+  responseBody String? @db.Text
+  error       String?
+  durationMs  Int
+  // HMAC signature inputs actually sent with this attempt (for the dashboard).
+  signature   String?
+  signatureTs String?
+  createdAt   DateTime @default(now())
+
+  @@index([deliveryId])
+}
