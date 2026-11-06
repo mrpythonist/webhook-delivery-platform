@@ -1,0 +1,9 @@
+=== Command: cd apps/api && npm run build ===
+=== Date: 2026-11-06T05:06:39Z | Node: v24.22.1 | No Postgres or Redis running on this machine ===
+
+
+> @webhook-platform/api@1.0.0 build
+> tsc -p tsconfig.json
+
+
+=== Exit code: 0 ===
