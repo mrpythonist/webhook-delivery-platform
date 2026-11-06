@@ -1,0 +1,46 @@
+=== Command: cd apps/web && npm run lint && npm run build ===
+=== Date: 2026-11-06T05:08:09Z | Node: v24.22.1 | Next.js 14.2.18 ===
+
+
+> @webhook-platform/web@1.0.0 lint
+> next lint
+
+? How would you like to configure ESLint? https://nextjs.org/docs/basic-features/eslint
+[?25l❯  Strict (recommended)
+   Base
+   Cancel ⚠ If you set up ESLint yourself, we recommend adding the Next.js ESLint plugin. See https://nextjs.org/docs/basic-features/eslint#migrating-existing-config
+--- lint exit code: 1 ---
+
+> @webhook-platform/web@1.0.0 build
+> next build
+
+  ▲ Next.js 14.2.35
+
+   Creating an optimized production build ...
+ ✓ Compiled successfully
+   Linting and checking validity of types ...
+   Collecting page data ...
+   Generating static pages (0/5) ...
+   Generating static pages (1/5) 
+   Generating static pages (2/5) 
+   Generating static pages (3/5) 
+ ✓ Generating static pages (5/5)
+   Finalizing page optimization ...
+   Collecting build traces ...
+
+Route (app)                              Size     First Load JS
+┌ ○ /                                    3.61 kB        90.9 kB
+├ ○ /_not-found                          873 B          88.2 kB
+├ ƒ /deliveries/[id]                     3.06 kB        90.3 kB
+└ ○ /endpoints                           2.89 kB        90.2 kB
++ First Load JS shared by all            87.3 kB
+  ├ chunks/117-19e2607edffa9051.js       31.7 kB
+  ├ chunks/fd9d1056-5f55067fad1d0619.js  53.6 kB
+  └ other shared chunks (total)          1.92 kB
+
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+
+
+=== Exit code: 0 ===
