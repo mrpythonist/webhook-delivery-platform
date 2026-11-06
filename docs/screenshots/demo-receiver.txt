@@ -1,0 +1,14 @@
+=== Commands: cd apps/demo-receiver && npm run build; then run it and curl /health and POST /ok ===
+=== Date: 2026-11-06T05:06:47Z | Node: v24.22.1 ===
+
+
+> @webhook-platform/demo-receiver@1.0.0 build
+> tsc -p tsconfig.json
+
+--- curl -s http://localhost:3002/health ---
+{"ok":true,"service":"demo-receiver","time":"2026-11-06T05:06:52.544Z"}
+--- curl -s -X POST http://localhost:3002/ok -H 'Content-Type: application/json' -d '{"test":1}' ---
+{"received":true}
+--- server log ---
+[demo-receiver] listening on :3002
+[2026-11-06T05:06:52.584Z] POST /ok delivery=- event=- signed=no
