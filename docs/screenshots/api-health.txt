@@ -1,0 +1,11 @@
+=== Command: PORT=3101 node dist/index.js, then curl http://localhost:3101/api/health ===
+=== Date: 2026-11-06T05:07:13Z | API started from a local build with no Postgres and no Redis running ===
+=== Note: port 3001 was in use by another process on this shared machine, so the API was started on 3101 instead. ===
+
+--- server log ---
+[api] listening on :3101
+[redis] connection error: 
+[redis] connection error: 
+--- curl -s http://localhost:3101/api/health ---
+{"ok":true,"service":"webhook-platform-api","time":"2026-11-06T05:07:16.431Z"}
+--- note: /api/health answers without a database. DB-backed routes such as /api/stats need DATABASE_URL and a reachable Postgres; without them the request fails (see docs/development.md). ---
