@@ -1,0 +1,66 @@
+name: Bug report
+description: Report a bug in the Webhook Delivery Platform
+title: "[Bug] "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting a bug. Please fill in the details below.
+        Check the README "Limitations" section and `docs/development.md` first,
+        some setup limits are already documented.
+  - type: textarea
+    id: description
+    attributes:
+      label: What happened?
+      description: A clear description of the bug.
+      placeholder: The worker kept retrying a delivery even after the endpoint returned 200.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: Exact commands and requests, in order.
+      placeholder: |
+        1. Started the stack with `docker compose up --build`
+        2. Registered an endpoint at http://localhost:3002/flaky
+        3. Published an event with `POST /api/events`
+        4. Checked the delivery in the dashboard
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What did you expect to happen?
+      placeholder: The delivery should be marked delivered after the third attempt.
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs or error output
+      description: Paste the full relevant output. Remove any secrets first.
+      placeholder: |
+        Paste terminal output, API responses, or stack traces here.
+      render: shell
+  - type: input
+    id: node-version
+    attributes:
+      label: Node.js version
+      placeholder: 20.x
+  - type: dropdown
+    id: setup
+    attributes:
+      label: How did you run the stack?
+      options:
+        - Docker Compose
+        - Local PostgreSQL and Redis (no Docker)
+        - Other (describe below)
+    validations:
+      required: true
+  - type: textarea
+    id: extra
+    attributes:
+      label: Anything else?
+      description: Extra context, such as the endpoint type (ok, slow, flaky, dead) or the event type.
