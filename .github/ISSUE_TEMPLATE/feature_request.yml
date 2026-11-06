@@ -1,0 +1,50 @@
+name: Feature request
+description: Suggest an idea for the Webhook Delivery Platform
+title: "[Feature] "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for suggesting an idea. Check the README roadmap first,
+        your idea may already be listed there.
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem would this solve?
+      description: Describe the problem, not just the solution.
+      placeholder: I need to replay a failed delivery by hand after fixing my endpoint, instead of waiting for retries.
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: What do you propose?
+      description: Describe the change, including any new API endpoints or dashboard views if relevant.
+      placeholder: Add a POST /api/deliveries/:id/redeliver endpoint that re-queues a failed delivery.
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives you considered
+      description: Other ways to solve the same problem, and why they fall short.
+      placeholder: Publishing the event again works, but it creates a new delivery and loses the original attempt history.
+  - type: dropdown
+    id: area
+    attributes:
+      label: Which part of the project does this affect?
+      multiple: true
+      options:
+        - API
+        - Worker / retries
+        - Dashboard
+        - Demo receiver / seed data
+        - Documentation
+        - Docker / deployment
+        - Other
+  - type: textarea
+    id: extra
+    attributes:
+      label: Anything else?
+      description: Extra context, links to similar features in other projects, or sketches.
