@@ -1,0 +1,7 @@
+=== Command: cd apps/api && DATABASE_URL=postgres://webhooks:webhooks@localhost:5432/webhooks npx prisma validate ===
+=== Date: 2026-11-06T05:06:43Z | Prisma 5.22.0 | DATABASE_URL points at a local Postgres that is not running; validate only checks the schema, it does not connect ===
+
+Prisma schema loaded from prisma/schema.prisma
+The schema at prisma/schema.prisma is valid 🚀
+
+=== Exit code: 0 ===
